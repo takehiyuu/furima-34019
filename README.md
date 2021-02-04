@@ -40,7 +40,7 @@ Things you may want to cover:
 ### Association
 
 - has_many :users_items
-- belongs_to :oder
+- belongs_to :addresses
 
 ## items テーブル
 
@@ -54,6 +54,7 @@ Things you may want to cover:
 | prefecture          | string    | null: false                    |
 | scheduled_delivery  | string    | null: false                    |
 | price               | string    | null: false                    |
+| user                | reference | null: false, foreign_key: true |
 | image               | active_storage                             |
 
 ### Association
@@ -63,13 +64,10 @@ Things you may want to cover:
 
 ## items(active_hash)テーブル
 
-| Column                 | Type    | Options                        |
-| ---------------------- | ------- | ------------------------------ |
-| category_id            | integer | null: false, foreign_key: true |
-| sales_status_id        | integer | null: false, foreign_key: true |
-| shipping_fee_status_id | integer | null: false, foreign_key: true |
-| prefecture_id          | integer | null: false, foreign_key: true |
-| scheduled_delivery_id  | integer | null: false, foreign_key: true |
+| Column                 | Type      | Options                        |
+| ---------------------- | --------- | ------------------------------ |
+| prefecture_id          | integer   | null: false, foreign_key: true |
+| item                   | reference | null: false, foreign_key: true |
 
 ## Association
 - belongs_to :item
@@ -88,20 +86,30 @@ Things you may want to cover:
 
 ## orders テーブル
 
-| Column         | Type   | Options     |
-| -------------- | ------ | ----------- |
-| card_number    | string | null: false |
-| card_exp_month | string | null: false |
-| card_exp_year  | string | null: false |
-| card_cvc       | string | null: false |
-| postal_code    | string | null: false |
-| prefecture     | string | null: false |
-| city           | string | null: false |
-| addresses      | string | null: false |
-| building       | string | null: false |
-| phone-number   | string | null: false |
+| Column              | Type      | Options                        |
+| ------------------- | --------- | ------------------------------ |
+| card_number         | string    | null: false                    |
+| card_exp_month      | string    | null: false                    |
+| card_exp_year       | string    | null: false                    |
+| card_cvc            | string    | null: false                    |
+| postal_code         | string    | null: false                    |
 
 ### Association
 
-- belongs_to :item
+- belongs_to :street_address
+
+## street_addresses テーブル
+
+| Column              | Type       | Options                         |
+| prefecture          | string     | null: false                     |
+| city                | string     | null: false                     |
+| addresses           | string     | null: false                     |
+| building            | string     |                                 |
+| phone-number        | string     | null: false                     |
+| user                | references | null: false, foreign_key: true  |
+| order                | references | null: false, foreign_key: true  |
+
+### Association
+
+- belongs_to :order
 - belongs_to :user
