@@ -39,38 +39,30 @@ Things you may want to cover:
 
 ### Association
 
-- has_many :users_items
-- belongs_to :addresses
+- has_many :items
+- belongs_to :users_items
 
 ## items テーブル
 
-| Column              | Type      | Options                        |
-| ------------------- | --------- | ------------------------------ |
-| name                | string    | null: false                    |
-| info                | string    | null: false                    |
-| category            | string    | null: false                    |
-| sales_status        | string    | null: false                    |
-| shipping_fee_status | string    | null: false                    |
-| prefecture          | string    | null: false                    |
-| scheduled_delivery  | string    | null: false                    |
-| price               | string    | null: false                    |
-| user                | reference | null: false, foreign_key: true |
-| image               | active_storage                             |
+| Column                 | Type      | Options                        |
+| ---------------------- | --------- | ------------------------------ |
+| name                   | string    | null: false                    |
+| info                   | string    | null: false                    |
+| category_id            | integer   | null: false                    |
+| sales_status_id        | integer   | null: false                    |
+| shipping_fee_status_id | integer   | null: false                    |
+| prefecture_id          | integer   | null: false                    |
+| scheduled_delivery_id  | integer   | null: false                    |
+| price                  | string    | null: false                    |
+| tax_price              | string    | null: false                    |
+| profit                 | string    | null: false                    |
+| image                  | active_storage                             |
+| user_id                | reference | null: false, foreign_key: true |
 
 ### Association
 
 - has_many :users_items
-- has_many :item(active_hash)
-
-## items(active_hash)テーブル
-
-| Column                 | Type      | Options                        |
-| ---------------------- | --------- | ------------------------------ |
-| prefecture_id          | integer   | null: false, foreign_key: true |
-| item                   | reference | null: false, foreign_key: true |
-
-## Association
-- belongs_to :item
+- belongs_to :user
 
 ## users_items テーブル
 
@@ -83,8 +75,25 @@ Things you may want to cover:
 
 - belongs_to :item
 - belongs_to :user
+- belongs_to :street_address
 
-## orders テーブル
+## street_addresses テーブル
+
+| Column        | Type       | Options                         |
+| postal_code   | string     | null: false                     |
+| prefecture_id | integer    | null: false                     |
+| city          | string     | null: false                     |
+| addresses     | string     | null: false                     |
+| building      | string     |                                 |
+| phone_number  | string     | null: false                     |
+| users_items   | references | null: false, foreign_key: true  |
+
+### Association
+
+- belongs_to :users_items
+
+
+## cards テーブル
 
 | Column              | Type      | Options                        |
 | ------------------- | --------- | ------------------------------ |
@@ -92,24 +101,3 @@ Things you may want to cover:
 | card_exp_month      | string    | null: false                    |
 | card_exp_year       | string    | null: false                    |
 | card_cvc            | string    | null: false                    |
-| postal_code         | string    | null: false                    |
-
-### Association
-
-- belongs_to :street_address
-
-## street_addresses テーブル
-
-| Column              | Type       | Options                         |
-| prefecture          | string     | null: false                     |
-| city                | string     | null: false                     |
-| addresses           | string     | null: false                     |
-| building            | string     |                                 |
-| phone-number        | string     | null: false                     |
-| user                | references | null: false, foreign_key: true  |
-| order                | references | null: false, foreign_key: true  |
-
-### Association
-
-- belongs_to :order
-- belongs_to :user
