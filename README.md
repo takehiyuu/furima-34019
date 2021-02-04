@@ -40,14 +40,14 @@ Things you may want to cover:
 ### Association
 
 - has_many :items
-- belongs_to :order
+- has_many :orders
 
 ## items テーブル
 
 | Column                 | Type       | Options                        |
 | ---------------------- | ---------- | ------------------------------ |
 | name                   | string     | null: false                    |
-| info                   | string     | null: false                    |
+| info                   | text       | null: false                    |
 | category_id            | integer    | null: false                    |
 | sales_status_id        | integer    | null: false                    |
 | shipping_fee_status_id | integer    | null: false                    |
@@ -58,7 +58,7 @@ Things you may want to cover:
 
 ### Association
 
-- belongs_to :order
+- has_one :order
 - belongs_to :user
 
 ## orders テーブル
@@ -70,9 +70,9 @@ Things you may want to cover:
 
 ### Association
 
-- has_one :item
-- has_one :user
-- belongs_to :street_address
+- belongs_to :item
+- belongs_to :user
+- has_one :street_address
 
 ## street_addresses テーブル
 
@@ -87,4 +87,4 @@ Things you may want to cover:
 
 ### Association
 
-- has_one :order
+- belongs_to order
