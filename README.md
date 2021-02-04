@@ -35,46 +35,43 @@ Things you may want to cover:
 | first_name                 | string | null: false |
 | last_name_kana             | string | null: false |
 | first_name_kana            | string | null: false |
-| birth_date                 | string | nill: false |
+| birth_date                 | date   | nill: false |
 
 ### Association
 
 - has_many :items
-- belongs_to :users_items
+- belongs_to :order
 
 ## items テーブル
 
-| Column                 | Type      | Options                        |
-| ---------------------- | --------- | ------------------------------ |
-| name                   | string    | null: false                    |
-| info                   | string    | null: false                    |
-| category_id            | integer   | null: false                    |
-| sales_status_id        | integer   | null: false                    |
-| shipping_fee_status_id | integer   | null: false                    |
-| prefecture_id          | integer   | null: false                    |
-| scheduled_delivery_id  | integer   | null: false                    |
-| price                  | string    | null: false                    |
-| tax_price              | string    | null: false                    |
-| profit                 | string    | null: false                    |
-| image                  | active_storage                             |
-| user_id                | reference | null: false, foreign_key: true |
+| Column                 | Type       | Options                        |
+| ---------------------- | ---------- | ------------------------------ |
+| name                   | string     | null: false                    |
+| info                   | string     | null: false                    |
+| category_id            | integer    | null: false                    |
+| sales_status_id        | integer    | null: false                    |
+| shipping_fee_status_id | integer    | null: false                    |
+| prefecture_id          | integer    | null: false                    |
+| scheduled_delivery_id  | integer    | null: false                    |
+| price                  | integer    | null: false                    |
+| user                   | references | null: false, foreign_key: true |
 
 ### Association
 
-- has_many :users_items
+- belongs_to :order
 - belongs_to :user
 
-## users_items テーブル
+## orders テーブル
 
 | Column    | Type       | Options                        |
 | --------- | ---------- | ------------------------------ |
-| user_id   | references | null: false, foreign_key: true |
-| item_id   | references | null: false, foreign_key: true |
+| user      | references | null: false, foreign_key: true |
+| item      | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :item
-- belongs_to :user
+- has_one :item
+- has_one :user
 - belongs_to :street_address
 
 ## street_addresses テーブル
@@ -86,18 +83,8 @@ Things you may want to cover:
 | addresses     | string     | null: false                     |
 | building      | string     |                                 |
 | phone_number  | string     | null: false                     |
-| users_items   | references | null: false, foreign_key: true  |
+| order         | references | null: false, foreign_key: true  |
 
 ### Association
 
-- belongs_to :users_items
-
-
-## cards テーブル
-
-| Column              | Type      | Options                        |
-| ------------------- | --------- | ------------------------------ |
-| card_number         | string    | null: false                    |
-| card_exp_month      | string    | null: false                    |
-| card_exp_year       | string    | null: false                    |
-| card_cvc            | string    | null: false                    |
+- has_one :order
