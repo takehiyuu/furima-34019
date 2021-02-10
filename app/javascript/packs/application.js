@@ -7,6 +7,7 @@ require("@rails/ujs").start()
 // require("turbolinks").start()画面遷移を高速化するgemイベント発火しないことを防ぐため今回は除外
 require("@rails/activestorage").start()
 require("channels")
+require("../item_price");
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
