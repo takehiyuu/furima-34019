@@ -11,21 +11,22 @@ class Item < ApplicationRecord
 
 
      PRICE_REGEX = /\A[0-9]+\z/.freeze
-     # validates_format_of :price, with: PRICE_REGEX, message: '販売価格には半角数字のみ使用してください'
-     # validates :name, format: { with: PRICE_REGEX, message: '販売価格には半角数字のみ使用してください' }
+
      
      with_options presence: true do
           
           validates :name
           validates :info
           validates :image
-          validates :category_id,            numericality: { other_than: 1 }
-          validates :sales_status_id,        numericality: { other_than: 1 }
-          validates :shipping_fee_status_id, numericality: { other_than: 1 }
-          validates :prefecture_id,          numericality: { other_than: 1 }
-          validates :scheduled_delivery_id,  numericality: { other_than: 1 }
           validates :price,                  numericality: { only_integer:true, greater_than_or_equal_to:300,less_than_or_equal_to:9999999, message: "300以上9999999以下で入力して下さい" }
           validates :price, numericality: { with: PRICE_REGEX, message: '販売価格には半角数字のみ使用してください' }
 
+          with_options numericality: { other_than: 1 } do
+               validates :category_id
+               validates :sales_status_id
+               validates :shipping_fee_status_id
+               validates :prefecture_id
+               validates :scheduled_delivery_id
+          end
      end
 end
