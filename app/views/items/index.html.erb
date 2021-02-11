@@ -125,11 +125,10 @@
     <h2 class='title'>ピックアップカテゴリー</h2>
     <%= link_to '新規投稿商品', "#", class: "subtitle" %>
     <ul class='item-lists'>
-
+       <% @items.each do |item| %>
       <li class='list'>
-        <% @items.each do |item| %>
         <div class='item-img-content'>
-           <%= image_tag item.image, class: "item-img" %>
+           <%= link_to image_tag(item.image, class: "item-img"), item_path(item.id), method: :get %>
 
           <%# 商品が売れていればsold outを表示しましょう %>
           <div class='sold-out'>
