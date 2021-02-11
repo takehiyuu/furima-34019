@@ -33,6 +33,11 @@ class ItemsController < ApplicationController
           end
      end
 
+     def destory
+          item = Item.find(params[:id])
+          item.destory
+     end
+
 
      private
 
