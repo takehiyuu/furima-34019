@@ -65,6 +65,11 @@ RSpec.describe OrderStreetAddress, type: :model do
         @order.valid?
         expect(@order.errors.full_messages).to include("Phone number 携帯電話の番号を正しく入力してください")
       end
+      it "電話番号は英数字混合では登録できないこと" do
+        @order.phone_number = "take0000000"
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Phone number 携帯電話の番号を正しく入力してください")
+      end
       it "購入に紐ずく商品の情報がないと購入できない" do
         @order.item_id = nil
         @order.valid?
