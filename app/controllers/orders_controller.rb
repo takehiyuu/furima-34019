@@ -1,8 +1,9 @@
 class OrdersController < ApplicationController
      before_action :authenticate_user!
+     before_action :set_item
      def index
-          @item = Item.find(params[:item_id])
-          @order_street_address = OrderStreetAddress.new
+          set_item
+          set_order_street_address
           if @item.user_id == current_user.id
                redirect_to root_path
           end
@@ -12,12 +13,11 @@ class OrdersController < ApplicationController
      end
 
      def new
-          @order_street_address = OrderStreetAddress.new
+          set_order_street_address
      end
 
      def create
-          @item = Item.find(params[:item_id])
-          # binding.pry
+          set_item
           @order_street_address = OrderStreetAddress.new(order_params)
           if @order_street_address.valid?
                @order_street_address.save
@@ -41,5 +41,13 @@ class OrdersController < ApplicationController
                card: order_params[:token],
                currency: 'jpy'
           )
+     end
+
+     def set_item
+          @item = Item.find(params[:item_id])
+     end
+
+     def set_order_street_address
+          @order_street_address = OrderStreetAddress.new
      end
 end
